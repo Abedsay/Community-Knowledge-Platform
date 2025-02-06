@@ -220,3 +220,43 @@ export const votePost = async (postId, voteType) => {
     return { message: "Failed to vote." };
   }
 };
+
+
+// Fetch comments for a post
+export const getComments = async (postId) => {
+  try {
+    const response = await axios.get(`${API_URL}/comments.php?postId=${postId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching comments:", error);
+    return [];
+  }
+};
+
+// Add a new comment
+export const addComment = async (postId, userId, content) => {
+  try {
+    const response = await axios.post(`${API_URL}/comments.php`, {
+      PostId: postId,
+      UserId: userId,
+      Content: content
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error adding comment:", error);
+    return { message: "Failed to add comment." };
+  }
+};
+
+// Delete a comment
+export const deleteComment = async (commentId) => {
+  try {
+    const response = await axios.delete(`${API_URL}/comments.php`, {
+      data: { CommentId: commentId }
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting comment:", error);
+    return { message: "Failed to delete comment." };
+  }
+};

@@ -1,42 +1,100 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getPostById } from "../utils/api";
+import { getPostById, getComments, addComment, deleteComment } from "../utils/api";
 import "../styles.css";
 
 function PostDetails() {
   const { id } = useParams();
   const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
-    const fetchPost = async () => {
+    const fetchData = async () => {
       try {
-        const data = await getPostById(id);
-        console.log("Fetched Post Details:", data); // Debugging log
-
-        if (Array.isArray(data) && data.length > 0) {
-          setPost(data[0]); // Extract first item from array
-        } else {
-          setError("Post not found.");
-        }
-      } catch (err) {
-        setError("Failed to load post. Please try again later.");
-      } finally {
-        setLoading(false);
+        const postDetails = await getPostById(id);
+        const postComments = await getComments(id);
+        setPost(postDetails[0]);
+        setComments(postComments);
+      } catch (error) {
+        console.error("Error fetching post details:", error);
       }
     };
-    fetchPost();
+    fetchData();
   }, [id]);
 
-  if (loading) return <p>Loading post...</p>;
-  if (error) return <p className="error-message">{error}</p>;
+  const handleAddComment = async () => {
+    if (!newComment.trim()) return;
+
+    const response = await addComment(id, userId, newComment);
+    if (response.message === "Comment added successfully.") {
+      const updatedComments = await getComments(id);
+      setComments(updatedComments);
+      setNewComment("");
+    }
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    const response = await deleteComment(commentId);
+    if (response.message === "Comment deleted successfully.") {
+      setComments(comments.filter(comment => comment.CommentId !== commentId));
+    }
+  };
+
+  if (!post) return <p className="loading-message">Loading post...</p>;
 
   return (
-    <div className="container post-details">
-      <h1>{post.Title}</h1>
-      <hr></hr>
-      <p>{post.Description}</p>
+    <div className="post-details-container">
+      {/* ✅ Fixed: Post Details Now Displayed */}
+      
+        <h1>{post.Title}</h1>
+        <hr></hr>
+        <p>{post.Description}</p>
+      
+
+        <div className="comment-section">
+        <h3>Comments</h3>
+        <textarea
+          className="comment-input"
+          placeholder="Write a comment..."
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+        />
+        <button className="comment-btn" onClick={handleAddComment}>Post Comment</button>
+
+        {/* ✅ Display Comments */}
+        <div className="comments-list">
+  {comments.length > 0 ? (
+    comments.map((comment) => (
+      <div key={comment.CommentId} className="comment">
+        {/* ✅ Left Section: Username & Date */}
+        <div className="comment-left">
+          <strong className="comment-username">{comment.Username || "Unknown User"}</strong>
+          <span className="comment-date">
+            {new Date(comment.CreatedAt).toLocaleDateString('en-US', {
+              month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit'
+            })}
+          </span> 
+        </div>
+
+        {/* ✅ Center Section: Comment Content (Always Centered) */}
+        <p className="comment-content">{comment.Content}</p>
+
+        {/* ✅ Right Section: Delete Button (Only for the user’s own comments) */}
+        {comment.UserId == userId ? (
+          <button className="delete-comment-btn" onClick={() => handleDeleteComment(comment.CommentId)}>🗑</button>
+        ) : (
+          <div className="delete-comment-btn"></div> /* Placeholder for alignment */
+        )}
+      </div>
+    ))
+  ) : (
+    <p className="no-comments">No comments yet.</p>
+  )}
+</div>
+
+      </div>
     </div>
   );
 }

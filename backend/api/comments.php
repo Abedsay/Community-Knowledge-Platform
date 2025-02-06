@@ -27,19 +27,27 @@ switch ($request_method) {
         }
         break;
 
-    case 'GET': // Read Comments for a Post
-        if (isset($_GET["postId"])) {
-            $comment->PostId = $_GET["postId"];
-            $result = $comment->readByPost();
-            $comments_arr = [];
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                $comments_arr[] = $row;
+        case 'GET': // Read Comments for a Post with Usernames
+            if (isset($_GET["postId"])) {
+                $comment->PostId = $_GET["postId"];
+                $result = $comment->readByPost();
+                $comments_arr = [];
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $comments_arr[] = [
+                        "CommentId" => $row["CommentId"],
+                        "Content" => $row["Content"],
+                        "UserId" => $row["UserId"],
+                        "PostId" => $row["PostId"],
+                        "CreatedAt" => $row["CreatedAt"],
+                        "Username" => $row["Username"] ?? "Unknown User" // ✅ Now returns correct username
+                    ];
+                }
+                echo json_encode($comments_arr);
+            } else {
+                echo json_encode(["message" => "postId is required."]);
             }
-            echo json_encode($comments_arr);
-        } else {
-            echo json_encode(["message" => "postId is required."]);
-        }
-        break;
+            break;
+        
 
     case 'DELETE': // Delete Comment
         $data = json_decode(file_get_contents("php://input"));

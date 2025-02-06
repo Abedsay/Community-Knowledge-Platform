@@ -27,7 +27,12 @@ class Comment {
 
     // Read Comments for a Post
     public function readByPost() {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE PostId = :PostId ORDER BY CreatedAt DESC";
+        $query = "SELECT c.*, u.Username 
+                  FROM " . $this->table_name . " c
+                  LEFT JOIN users u ON c.UserId = u.UserId
+                  WHERE c.PostId = :PostId
+                  ORDER BY c.CreatedAt DESC";
+                  
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":PostId", $this->PostId);
         $stmt->execute();
