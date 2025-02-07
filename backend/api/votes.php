@@ -14,7 +14,7 @@ $vote = new Vote($db);
 $request_method = $_SERVER["REQUEST_METHOD"];
 
 switch ($request_method) {
-    case 'POST': // Create Vote
+    case 'POST': 
         $data = json_decode(file_get_contents("php://input"));
         if (!empty($data->UserId) && !empty($data->PostId) && !empty($data->VoteType)) {
             $vote->UserId = $data->UserId;
@@ -27,7 +27,7 @@ switch ($request_method) {
         }
         break;
 
-        case 'GET': // Read Vote Count for a Post
+        case 'GET': 
             if (isset($_GET["postId"])) {
                 $vote->PostId = $_GET["postId"];
                 $totalVotes = $vote->getVoteCount();
@@ -37,7 +37,7 @@ switch ($request_method) {
             }
             break;
         
-    case 'DELETE': // Delete Vote
+    case 'DELETE': 
         $data = json_decode(file_get_contents("php://input"));
         if (!empty($data->VoteId)) {
             $vote->VoteId = $data->VoteId;

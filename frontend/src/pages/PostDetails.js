@@ -46,14 +46,11 @@ function PostDetails() {
 
   return (
     <div className="post-details-container">
-      {/* ✅ Fixed: Post Details Now Displayed */}
-      
-        <h1>{post.Title}</h1>
-        <hr></hr>
-        <p>{post.Description}</p>
-      
+      <h1>{post.Title}</h1>
+      <hr></hr>
+      <p>{post.Description}</p>
 
-        <div className="comment-section">
+      <div className="comment-section">
         <h3>Comments</h3>
         <textarea
           className="comment-input"
@@ -63,37 +60,32 @@ function PostDetails() {
         />
         <button className="comment-btn" onClick={handleAddComment}>Post Comment</button>
 
-        {/* ✅ Display Comments */}
         <div className="comments-list">
-  {comments.length > 0 ? (
-    comments.map((comment) => (
-      <div key={comment.CommentId} className="comment">
-        {/* ✅ Left Section: Username & Date */}
-        <div className="comment-left">
-          <strong className="comment-username">{comment.Username || "Unknown User"}</strong>
-          <span className="comment-date">
-            {new Date(comment.CreatedAt).toLocaleDateString('en-US', {
-              month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit'
-            })}
-          </span> 
+          {comments.length > 0 ? (
+            comments.map((comment) => (
+              <div key={comment.CommentId} className="comment">
+                <div className="comment-left">
+                  <strong className="comment-username">{comment.Username || "Unknown User"}</strong>
+                  <span className="comment-date">
+                    {new Date(comment.CreatedAt).toLocaleDateString('en-US', {
+                      month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit'
+                    })}
+                  </span> 
+                </div>
+
+                <p className="comment-content">{comment.Content}</p>
+
+                {comment.UserId == userId ? (
+                  <button className="delete-comment-btn" onClick={() => handleDeleteComment(comment.CommentId)}>🗑</button>
+                ) : (
+                  <div className="delete-comment-btn"></div>
+                )}
+              </div>
+            ))
+          ) : (
+            <p className="no-comments">No comments yet.</p>
+          )}
         </div>
-
-        {/* ✅ Center Section: Comment Content (Always Centered) */}
-        <p className="comment-content">{comment.Content}</p>
-
-        {/* ✅ Right Section: Delete Button (Only for the user’s own comments) */}
-        {comment.UserId == userId ? (
-          <button className="delete-comment-btn" onClick={() => handleDeleteComment(comment.CommentId)}>🗑</button>
-        ) : (
-          <div className="delete-comment-btn"></div> /* Placeholder for alignment */
-        )}
-      </div>
-    ))
-  ) : (
-    <p className="no-comments">No comments yet.</p>
-  )}
-</div>
-
       </div>
     </div>
   );

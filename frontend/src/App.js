@@ -7,7 +7,6 @@ import Profile from "./pages/Profile";
 import CreatePost from "./pages/CreatePost";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import SearchResults from "./pages/SearchResults";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import EditPost from "./pages/EditPost";
@@ -17,7 +16,7 @@ function App() {
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Router>
         <Header />
-        <Box sx={{ flex: 1 }}> {/* Pushes content above footer */}
+        <Box sx={{ flex: 1 }}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/post/:id" element={<PostDetails />} />
@@ -25,7 +24,6 @@ function App() {
             <Route path="/create" element={<CreatePost />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/search" element={<SearchResults />} />
             <Route path="/edit/:id" element={<EditPost />} />
           </Routes>
         </Box>

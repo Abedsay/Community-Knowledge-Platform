@@ -14,7 +14,7 @@ $postCategory = new PostCategory($db);
 $request_method = $_SERVER["REQUEST_METHOD"];
 
 switch ($request_method) {
-    case 'POST': // Assign Category to Post
+    case 'POST':
         $data = json_decode(file_get_contents("php://input"));
         if (!empty($data->PostId) && !empty($data->CategoryId)) {
             $postCategory->PostId = $data->PostId;
@@ -26,7 +26,7 @@ switch ($request_method) {
         }
         break;
 
-    case 'GET': // Get Categories for a Post
+    case 'GET':
         if (isset($_GET["postId"])) {
             $postCategory->PostId = $_GET["postId"];
             $result = $postCategory->getCategoriesByPost();

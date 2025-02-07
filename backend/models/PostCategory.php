@@ -10,7 +10,6 @@ class PostCategory {
         $this->conn = $db;
     }
 
-    // Assign Category to Post
     public function assignCategory() {
         $query = "INSERT INTO " . $this->table_name . " (PostId, CategoryId) VALUES (:PostId, :CategoryId)";
         $stmt = $this->conn->prepare($query);
@@ -21,7 +20,6 @@ class PostCategory {
         return $stmt->execute();
     }
 
-    // Get Categories for a Post
     public function getCategoriesByPost() {
         $query = "SELECT categories.CategoryId, categories.CategoryName FROM " . $this->table_name . "
                   INNER JOIN categories ON postcategories.CategoryId = categories.CategoryId

@@ -52,7 +52,7 @@ function Profile() {
 
   return (
     <div className="profile-container">
-      <h1>{user.username}</h1> {/* ✅ Displays Username Instead of Email */}
+      <h1>{user.username}</h1>
       <h2>My Posts</h2>
       <div className="posts-grid">
         {posts.length > 0 ? (
@@ -61,7 +61,6 @@ function Profile() {
               <h3>{post.Title}</h3>
               <p>{post.Description.length > 100 ? post.Description.substring(0, 100) + "..." : post.Description}</p>
               
-              {/* ✅ Show votes but remove voting buttons */}
               <div className="vote-count-profile">Votes: {post.votes || 0}</div>
 
               <div className="post-actions">

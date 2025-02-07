@@ -11,7 +11,6 @@ $database = new Database();
 $db = $database->getConnection();
 $post = new Post($db);
 
-// Ensure UserId is provided
 if (!isset($_GET["userId"])) {
     echo json_encode(["message" => "User ID is required."]);
     exit();

@@ -14,7 +14,7 @@ $user = new User($db);
 $request_method = $_SERVER["REQUEST_METHOD"];
 
 switch ($request_method) {
-    case 'POST': // Create User
+    case 'POST':
         $data = json_decode(file_get_contents("php://input"));
         if (!empty($data->username) && !empty($data->email) && !empty($data->password)) {
             $user->Username = $data->username;
@@ -25,15 +25,14 @@ switch ($request_method) {
             if ($user->create()) {
                 echo json_encode(["message" => "User created successfully."]);
             } else {
-                echo json_encode(["message" => "Failed to create user.", "error" => $db->errorInfo()]);
+                echo json_encode(["message" => "Failed to create user."]);
             }
-            
         } else {
             echo json_encode(["message" => "Incomplete data."]);
         }
         break;
 
-    case 'GET': // Read Users
+    case 'GET':
         if (isset($_GET["id"])) {
             $user->UserId = $_GET["id"];
             $result = $user->readSingle();
@@ -48,7 +47,7 @@ switch ($request_method) {
         echo json_encode($users_arr);
         break;
 
-    case 'PUT': // Update User
+    case 'PUT':
         $data = json_decode(file_get_contents("php://input"));
         if (!empty($data->UserId) && !empty($data->Username) && !empty($data->Email) && !empty($data->RoleId)) {
             $user->UserId = $data->UserId;
@@ -62,7 +61,7 @@ switch ($request_method) {
         }
         break;
 
-    case 'DELETE': // Delete User
+    case 'DELETE':
         $data = json_decode(file_get_contents("php://input"));
         if (!empty($data->UserId)) {
             $user->UserId = $data->UserId;

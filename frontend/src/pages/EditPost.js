@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getPostById, updatePost } from "../utils/api"; // Import API functions
+import { getPostById, updatePost } from "../utils/api";
 import "../styles.css";
 
 function EditPost() {
-  const { id } = useParams(); // Get post ID from URL
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");

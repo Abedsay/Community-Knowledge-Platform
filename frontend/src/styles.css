@@ -1,4 +1,3 @@
-/* Reset default styles */
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +5,6 @@
   font-family: "Poppins", sans-serif;
 }
 
-/* Body layout */
 body {
   background-color: #f3f4f6;
   color: #333;
@@ -16,7 +14,6 @@ body {
   min-height: 100vh;
 }
 
-/* Main content container */
 .container {
   width: 90%;
   max-width: 1200px;
@@ -24,7 +21,6 @@ body {
   padding: 20px;
 }
 
-/* Header Styling */
 .header {
   background: #1e2a38;
   color: white;
@@ -55,7 +51,6 @@ body {
   text-decoration: underline;
 }
 
-/* Footer */
 footer {
   background: #1e2a38;
   color: white;
@@ -65,7 +60,6 @@ footer {
   font-size: 14px;
 }
 
-/* Buttons */
 button {
   background: #007bff;
   color: white;
@@ -81,7 +75,6 @@ button:hover {
   background: #0056b3;
 }
 
-/* Form styles */
 form {
   display: flex;
   flex-direction: column;
@@ -103,7 +96,6 @@ textarea {
   resize: none;
 }
 
-/* Consistent Form Styling */
 .form-container {
   background: white;
   padding: 40px;
@@ -115,7 +107,6 @@ textarea {
   margin: 100px auto;
 }
 
-/* Form Inputs */
 .form-container input {
   width: 100%;
   padding: 14px;
@@ -124,7 +115,6 @@ textarea {
   border-radius: 5px;
 }
 
-/* Button */
 .form-container button {
   width: 100%;
   padding: 12px;
@@ -142,7 +132,6 @@ textarea {
   background: #0056b3;
 }
 
-/* Link Styling */
 .link-text {
   color: #007bff;
   font-weight: bold;
@@ -153,7 +142,6 @@ textarea {
   text-decoration: underline;
 }
 
-/* Ensure footer has space */
 html, body {
   height: 100%;
   display: flex;
@@ -164,7 +152,6 @@ html, body {
   flex: 1;
 }
 
-/* Animated Text */
 .animated-text {
   font-size: 22px;
   font-weight: bold;
@@ -183,13 +170,12 @@ html, body {
 
 .posts-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); /* Two columns */
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); 
   gap: 20px;
   justify-content: center;
   padding: 20px;
 }
 
-/* Post Card Styling */
 .post-card {
   background: white;
   padding: 20px;
@@ -220,7 +206,6 @@ html, body {
   line-height: 1.5;
 }
 
-/* Read More Button */
 .post-card button {
   background: #007bff;
   color: white;
@@ -251,7 +236,7 @@ html, body {
 
 .posts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* ✅ Two Columns */
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
   gap: 20px;
   margin-top: 20px;
 }
@@ -375,11 +360,10 @@ html, body {
 }
 
 
-/* Profile page vote count */
 .vote-count-profile {
   font-size: 1rem;
   font-weight: bold;
-  text-align: right; /* Align to the right */
+  text-align: right; 
   margin-top: 5px;
 }
 
@@ -522,7 +506,7 @@ html, body {
 
 .comment-header {
   display: flex;
-  flex-direction: column; /* Stack username and time vertically */
+  flex-direction: column; 
   margin-bottom: 5px;
 }
 
@@ -553,12 +537,12 @@ html, body {
 .comment-left {
   display: flex;
   flex-direction: column;
-  width: 150px; /* Fixed width for uniform alignment */
+  width: 150px; 
 }
 
 .comment-content {
   flex-grow: 1;
-  text-align: center; /* Always centered */
+  text-align: center; 
   font-size: 16px;
 }
 
@@ -574,7 +558,7 @@ html, body {
   cursor: pointer;
   color: red;
   font-size: 16px;
-  width: 40px; /* Ensures alignment even when missing */
+  width: 40px; 
   display: flex;
   justify-content: center;
   align-items: center;

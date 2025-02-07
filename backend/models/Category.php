@@ -10,7 +10,6 @@ class Category {
         $this->conn = $db;
     }
 
-    // Create Category
     public function create() {
         $query = "INSERT INTO " . $this->table_name . " (CategoryName) VALUES (:CategoryName)";
         $stmt = $this->conn->prepare($query);
@@ -18,7 +17,6 @@ class Category {
         return $stmt->execute();
     }
 
-    // Read Categories
     public function read() {
         $query = "SELECT * FROM " . $this->table_name;
         $stmt = $this->conn->prepare($query);
@@ -26,7 +24,6 @@ class Category {
         return $stmt;
     }
 
-    // Delete Category
     public function delete() {
         $query = "DELETE FROM " . $this->table_name . " WHERE CategoryId = :CategoryId";
         $stmt = $this->conn->prepare($query);

@@ -15,21 +15,17 @@ function Register() {
       username,
       email,
       password,
-      roleId: 2  // Default role (e.g., 2 = regular user, 1 = admin)
+      roleId: 2
     };
-  
-    console.log("Submitting user data:", userData);  // ✅ Debugging Log
-  
+
     const response = await registerUser(userData);
-    console.log("API Response:", response);  // ✅ Debugging Log
-  
+
     if (response.message === "User created successfully.") {
       navigate("/login");
     } else {
       setError(response.message);
     }
   };
-  
 
   return (
     <div className="form-container">

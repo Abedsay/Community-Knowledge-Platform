@@ -12,7 +12,7 @@ function CreatePost() {
     const userId = localStorage.getItem("userId");
     if (!userId) {
       alert("You must be logged in to create a post.");
-      navigate("/login"); // Redirect to login if not logged in
+      navigate("/login");
     }
   }, [navigate]);
 
@@ -28,10 +28,8 @@ function CreatePost() {
     const postData = { 
       Title: title, 
       Description: description, 
-      UserId: userId  // ✅ Send UserId to backend
+      UserId: userId  
     };
-
-    console.log("Submitting post:", postData);
 
     const response = await createPost(postData);
 

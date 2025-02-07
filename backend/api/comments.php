@@ -14,7 +14,7 @@ $comment = new Comment($db);
 $request_method = $_SERVER["REQUEST_METHOD"];
 
 switch ($request_method) {
-    case 'POST': // Create Comment
+    case 'POST': 
         $data = json_decode(file_get_contents("php://input"));
         if (!empty($data->Content) && !empty($data->UserId) && !empty($data->PostId)) {
             $comment->Content = $data->Content;
@@ -27,29 +27,28 @@ switch ($request_method) {
         }
         break;
 
-        case 'GET': // Read Comments for a Post with Usernames
-            if (isset($_GET["postId"])) {
-                $comment->PostId = $_GET["postId"];
-                $result = $comment->readByPost();
-                $comments_arr = [];
-                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                    $comments_arr[] = [
-                        "CommentId" => $row["CommentId"],
-                        "Content" => $row["Content"],
-                        "UserId" => $row["UserId"],
-                        "PostId" => $row["PostId"],
-                        "CreatedAt" => $row["CreatedAt"],
-                        "Username" => $row["Username"] ?? "Unknown User" // ✅ Now returns correct username
-                    ];
-                }
-                echo json_encode($comments_arr);
-            } else {
-                echo json_encode(["message" => "postId is required."]);
+    case 'GET': 
+        if (isset($_GET["postId"])) {
+            $comment->PostId = $_GET["postId"];
+            $result = $comment->readByPost();
+            $comments_arr = [];
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                $comments_arr[] = [
+                    "CommentId" => $row["CommentId"],
+                    "Content" => $row["Content"],
+                    "UserId" => $row["UserId"],
+                    "PostId" => $row["PostId"],
+                    "CreatedAt" => $row["CreatedAt"],
+                    "Username" => $row["Username"] ?? "Unknown User"
+                ];
             }
-            break;
-        
+            echo json_encode($comments_arr);
+        } else {
+            echo json_encode(["message" => "postId is required."]);
+        }
+        break;
 
-    case 'DELETE': // Delete Comment
+    case 'DELETE': 
         $data = json_decode(file_get_contents("php://input"));
         if (!empty($data->CommentId)) {
             $comment->CommentId = $data->CommentId;

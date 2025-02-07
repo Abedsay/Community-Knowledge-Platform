@@ -14,7 +14,7 @@ $category = new Category($db);
 $request_method = $_SERVER["REQUEST_METHOD"];
 
 switch ($request_method) {
-    case 'POST': // Create Category
+    case 'POST': 
         $data = json_decode(file_get_contents("php://input"));
         if (!empty($data->CategoryName)) {
             $category->CategoryName = $data->CategoryName;
@@ -24,7 +24,7 @@ switch ($request_method) {
         }
         break;
 
-    case 'GET': // Read Categories
+    case 'GET': 
         $result = $category->read();
         $categories_arr = [];
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -33,7 +33,7 @@ switch ($request_method) {
         echo json_encode($categories_arr);
         break;
 
-    case 'DELETE': // Delete Category
+    case 'DELETE': 
         $data = json_decode(file_get_contents("php://input"));
         if (!empty($data->CategoryId)) {
             $category->CategoryId = $data->CategoryId;

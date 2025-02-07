@@ -12,7 +12,6 @@ class Vote {
         $this->conn = $db;
     }
 
-    // Create Vote
     public function create() {
         $query = "INSERT INTO " . $this->table_name . " (UserId, PostId, VoteType) VALUES (:UserId, :PostId, :VoteType)";
         $stmt = $this->conn->prepare($query);
@@ -24,7 +23,6 @@ class Vote {
         return $stmt->execute();
     }
 
-    // Get Votes for a Post
     public function readByPost() {
         $query = "SELECT VoteType, COUNT(*) as count FROM " . $this->table_name . " WHERE PostId = :PostId GROUP BY VoteType";
         $stmt = $this->conn->prepare($query);
@@ -33,7 +31,6 @@ class Vote {
         return $stmt;
     }
 
-    // Delete Vote
     public function delete() {
         $query = "DELETE FROM " . $this->table_name . " WHERE VoteId = :VoteId";
         $stmt = $this->conn->prepare($query);

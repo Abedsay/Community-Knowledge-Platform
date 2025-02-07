@@ -9,23 +9,18 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // ✅ Prevents page refresh
-  
+    e.preventDefault();
+
     const response = await loginUser({ email, password });
-    console.log("Login Response:", response); // Debugging log
-  
+
     if (response.token && response.userId) {
-      localStorage.setItem("token", response.token);  // ✅ Store token
-      localStorage.setItem("userId", response.userId);  // ✅ Store UserId for backend usage
-      
-      // ✅ Force a full page reload
+      localStorage.setItem("token", response.token);
+      localStorage.setItem("userId", response.userId);
       window.location.reload();
     } else {
-      console.error("Login failed:", response.message);
       setError(response.message || "Invalid email or password.");
     }
   };
-  
 
   return (
     <div className="form-container">

@@ -17,7 +17,7 @@ if ($request_method === 'POST') {
     $data = json_decode(file_get_contents("php://input"));
 
     if (!isset($data->email) || !isset($data->password)) {
-        echo json_encode(["message" => "Missing fields", "received" => $data]);
+        echo json_encode(["message" => "Missing fields"]);
         exit;
     }
 

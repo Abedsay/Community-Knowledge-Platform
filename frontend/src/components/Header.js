@@ -4,21 +4,21 @@ import "../styles.css";
 
 function Header() {
   const navigate = useNavigate();
-  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem("token")); // ✅ Reactive login state
+  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem("token")); 
 
   useEffect(() => {
     const checkLogin = () => {
       setLoggedIn(!!localStorage.getItem("token"));
     };
     
-    window.addEventListener("storage", checkLogin); // ✅ Listen for login/logout updates
+    window.addEventListener("storage", checkLogin); 
     return () => window.removeEventListener("storage", checkLogin);
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-    setLoggedIn(false); // ✅ Update state
+    setLoggedIn(false); 
     navigate("/login");
   };
 

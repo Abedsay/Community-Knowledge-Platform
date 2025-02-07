@@ -14,7 +14,7 @@ $post = new Post($db);
 $request_method = $_SERVER["REQUEST_METHOD"];
 
 switch ($request_method) {
-    case 'POST': // Create Post
+    case 'POST': 
         $data = json_decode(file_get_contents("php://input"));
         if (!empty($data->Title) && !empty($data->Description) && !empty($data->UserId)) {
             $post->Title = $data->Title;
@@ -27,7 +27,7 @@ switch ($request_method) {
         }
         break;
 
-    case 'GET': // Read Posts
+    case 'GET': 
         if (isset($_GET["id"])) {
             $post->PostId = $_GET["id"];
             $result = $post->readSingle();
@@ -42,7 +42,7 @@ switch ($request_method) {
         echo json_encode($posts_arr);
         break;
 
-    case 'PUT': // Update Post
+    case 'PUT': 
         $data = json_decode(file_get_contents("php://input"));
         if (!empty($data->PostId) && !empty($data->Title) && !empty($data->Description)) {
             $post->PostId = $data->PostId;
@@ -55,7 +55,7 @@ switch ($request_method) {
         }
         break;
 
-    case 'DELETE': // Delete Post
+    case 'DELETE': 
         $data = json_decode(file_get_contents("php://input"));
         if (!empty($data->PostId)) {
             $post->PostId = $data->PostId;

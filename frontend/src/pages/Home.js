@@ -33,14 +33,11 @@ function Home() {
 
   const handleVote = async (postId, voteType) => {
     try {
-      // Send vote request to API
       const response = await votePost(postId, voteType);
   
       if (response.message === "Vote registered.") {
-        // Fetch updated vote count from the API
         const updatedVotes = await getPostVotes(postId);
   
-        // Update state to reflect new vote count dynamically
         setPosts(posts.map(post => 
           post.PostId === postId ? { ...post, votes: updatedVotes } : post
         ));
@@ -67,12 +64,10 @@ function Home() {
                   : post.Description}
               </p>
               <div className="post-footer">
-                {/* Left: Read More Button */}
                 <button className="read-more-btn" onClick={() => navigate(`/post/${post.PostId}`)}>
                   Read More
                 </button>
                 
-                {/* Right: Vote Section */}
                 <div className="vote-container">
                   <span className="vote-button" onClick={() => handleVote(post.PostId, "upvote")}>▲</span>
                   <span className="vote-count">{post.votes || 0}</span>

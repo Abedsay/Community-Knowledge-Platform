@@ -13,7 +13,6 @@ class Comment {
         $this->conn = $db;
     }
 
-    // Create Comment
     public function create() {
         $query = "INSERT INTO " . $this->table_name . " (Content, UserId, PostId, CreatedAt) VALUES (:Content, :UserId, :PostId, NOW())";
         $stmt = $this->conn->prepare($query);
@@ -25,7 +24,6 @@ class Comment {
         return $stmt->execute();
     }
 
-    // Read Comments for a Post
     public function readByPost() {
         $query = "SELECT c.*, u.Username 
                   FROM " . $this->table_name . " c
@@ -39,7 +37,6 @@ class Comment {
         return $stmt;
     }
 
-    // Delete Comment
     public function delete() {
         $query = "DELETE FROM " . $this->table_name . " WHERE CommentId = :CommentId";
         $stmt = $this->conn->prepare($query);
